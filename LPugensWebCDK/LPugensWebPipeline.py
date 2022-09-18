@@ -7,12 +7,15 @@ from aws_cdk import (
 from constructs import Construct
 
 from LPugensWebCDK.LPugensWebStage import LPugensWebStage
+from LPugensWebCDK.StageConfigs import stage_configs
 
-class LpugensWebPipeline(Stack):
+
+class LPugensWebPipeline(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
-        
-        pipeline = pipelines.CodePipeline(self, construct_id,
+
+        pipeline = pipelines.CodePipeline(
+            self, construct_id,
             docker_credentials=[
                 pipelines.DockerCredential.docker_hub(
                     secret=secrets.Secret.from_secret_name_v2(
@@ -33,10 +36,12 @@ class LpugensWebPipeline(Stack):
                 ),
                 commands=[
                     "npm install -g aws-cdk",  # Installs the cdk cli on Codebuild
-                    "pip install -r requirements.txt",  # Instructs Codebuild to install required packages
+                    "pip install -r requirements.txt",
+                    # Instructs Codebuild to install required packages
                     "npx cdk synth",
                 ],
             )
         )
-        
-        pipeline.add_stage(LPugensWebStage(self, "LPugensWeb-dev"))
+
+        for stage, stage_config in stage_configs.items():
+            pipeline.add_stage(LPugensWebStage(self, stage, stage_config))

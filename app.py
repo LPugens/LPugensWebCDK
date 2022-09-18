@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 import aws_cdk as cdk
-from LPugensWebCDK.LPugensWebPipeline import LpugensWebPipeline
+from LPugensWebCDK.LPugensWebPipeline import LPugensWebPipeline
 
 
 app = cdk.App()
-pipeline = LpugensWebPipeline(
+pipeline = LPugensWebPipeline(
     app, 'LPugensWebPipeline'
 )
 
