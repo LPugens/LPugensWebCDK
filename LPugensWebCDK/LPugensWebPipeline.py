@@ -25,8 +25,8 @@ class LpugensWebPipeline(Stack):
             synth=pipelines.ShellStep(
                 "Synth",
                 input=pipelines.CodePipelineSource.connection(
-                    repo_string='LPugens/LPugensWebDjango',
-                    branch='mainline',
+                    repo_string='LPugens/LPugensWebCDK',
+                    branch='main',
                     connection_arn=ssm.StringParameter.value_for_string_parameter(
                         self, '/Github/Connection',
                     ),
@@ -34,7 +34,7 @@ class LpugensWebPipeline(Stack):
                 commands=[
                     "npm install -g aws-cdk",  # Installs the cdk cli on Codebuild
                     "pip install -r requirements.txt",  # Instructs Codebuild to install required packages
-                    "npx cdk synth MyDjangoAppPipeline",
+                    "npx cdk synth",
                 ],
             )
         )

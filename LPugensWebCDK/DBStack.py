@@ -15,4 +15,5 @@ class DBStack(Stack):
                 name='id',
                 type=dynamo.AttributeType.STRING,
             ),
+            billing_mode=dynamo.BillingMode.PAY_PER_REQUEST,
         )
