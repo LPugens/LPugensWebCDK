@@ -13,7 +13,7 @@ stage_configs = {
     'dev': StageConfig(
         aurora_scaling=ServerlessScalingOptions(
             auto_pause=Duration.minutes(5),
-            max_capacity=AuroraCapacityUnit.ACU_1,
+            max_capacity=AuroraCapacityUnit.ACU_2,
         )
     )
 }
