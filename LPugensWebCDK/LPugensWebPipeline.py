@@ -14,6 +14,8 @@ class LPugensWebPipeline(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
+        self.project_name = 'LPugensWeb'
+
         pipeline = pipelines.CodePipeline(
             self, construct_id,
             docker_credentials=[
@@ -44,4 +46,4 @@ class LPugensWebPipeline(Stack):
         )
 
         for stage, stage_config in stage_configs.items():
-            pipeline.add_stage(LPugensWebStage(self, stage, stage_config))
+            pipeline.add_stage(LPugensWebStage(self, f'{stage}-{self.project_name}', stage_config))
