@@ -25,8 +25,8 @@ stage_configs = {
             max_capacity=AuroraCapacityUnit.ACU_2,
         ),
         load_balancer_configs=LoadBalancerConfigs(
-            cpu=1,
-            memory_limit_mib=128,
+            cpu=256,  # 0.25 vCPU
+            memory_limit_mib=512,   # 0.5 GB
             desired_count=1,
             environment={}
         )
