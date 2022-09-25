@@ -20,3 +20,12 @@ class NetworkStack(Stack):
             enable_dns_hostnames=True,
             enable_dns_support=True
         )
+        
+        self.cloudwatch_private_link = ec2.InterfaceVpcEndpoint(
+            self,
+            "CloudWatchEndpoint",
+            vpc=self.vpc,
+            service=ec2.InterfaceVpcEndpointAwsService.CLOUDWATCH_LOGS,
+            open=True,
+            private_dns_enabled=True
+        )
