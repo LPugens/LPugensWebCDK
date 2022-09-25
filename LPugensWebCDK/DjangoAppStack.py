@@ -64,7 +64,7 @@ class DjangoAppStack(Stack):
         )
         # Set the health checks settings
         self.fargate_service.target_group.configure_health_check(
-            path="/",
+            path="/status/",
             healthy_threshold_count=3,
             unhealthy_threshold_count=2
         )
