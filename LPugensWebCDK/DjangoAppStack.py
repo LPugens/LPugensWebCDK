@@ -42,7 +42,7 @@ class DjangoAppStack(Stack):
             redirect_http=True,
             platform_version=ecs.FargatePlatformVersion.VERSION1_4,
             cluster=self.ecs_cluster,
-            task_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PRIVATE_ISOLATED),
+            task_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PRIVATE_WITH_NAT),
             cpu=stage_config.load_balancer_configs.cpu,
             memory_limit_mib=stage_config.load_balancer_configs.memory_limit_mib,
             desired_count=stage_config.load_balancer_configs.desired_count,

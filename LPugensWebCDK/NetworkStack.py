@@ -15,8 +15,8 @@ class NetworkStack(Stack):
             self,
             "VPC",
             # nat_gateways=0,  # No Nat GWs are required as we will add VPC endpoints
-            enable_dns_hostnames=True,
-            enable_dns_support=True
+            # enable_dns_hostnames=True,
+            # enable_dns_support=True
         )
         # Add VPC endpoints to keep the traffic inside AWS
         self.s3_private_link = ec2.GatewayVpcEndpoint(
