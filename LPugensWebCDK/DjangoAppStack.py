@@ -58,7 +58,7 @@ class DjangoAppStack(Stack):
                 container_name='django-app',
                 container_port=8000,
                 environment=stage_config.load_balancer_configs.environment,
-                secrets=app_secrets,
+                # secrets=app_secrets,
             ),
             public_load_balancer=True,
         )
