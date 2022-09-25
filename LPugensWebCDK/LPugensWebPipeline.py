@@ -18,15 +18,6 @@ class LPugensWebPipeline(Stack):
 
         pipeline = pipelines.CodePipeline(
             self, construct_id,
-            docker_credentials=[
-                pipelines.DockerCredential.docker_hub(
-                    secret=secrets.Secret.from_secret_name_v2(
-                        self,
-                        "DockerHubToken",
-                        secret_name="/LPugensWeb/DockerHubToken"
-                    ),
-                ),
-            ],
             synth=pipelines.ShellStep(
                 "Synth",
                 input=pipelines.CodePipelineSource.connection(

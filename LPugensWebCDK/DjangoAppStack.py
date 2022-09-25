@@ -48,17 +48,17 @@ class DjangoAppStack(Stack):
             desired_count=stage_config.load_balancer_configs.desired_count,
             task_image_options=ecs_patterns.ApplicationLoadBalancedTaskImageOptions(
                 image=ecs.ContainerImage.from_registry(
-                    name='lpugens/lpugens-web-django',
-                    credentials=secrets.Secret.from_secret_name_v2(
-                        self,
-                        "DockerHubToken",
-                        secret_name="/LPugensWeb/DockerHubToken"
-                    ),
+                    name='nginx',
+                    # credentials=secrets.Secret.from_secret_name_v2(
+                    #     self,
+                    #     "DockerHubToken",
+                    #     secret_name="/LPugensWeb/DockerHubToken"
+                    # ),
                 ),
                 container_name='django-app',
-                container_port=8000,
+                container_port=8080,
                 environment=stage_config.load_balancer_configs.environment,
-                # secrets=app_secrets,
+                secrets=app_secrets,
             ),
             public_load_balancer=True,
         )
