@@ -48,7 +48,7 @@ class DjangoAppStack(Stack):
             desired_count=stage_config.load_balancer_configs.desired_count,
             task_image_options=ecs_patterns.ApplicationLoadBalancedTaskImageOptions(
                 image=ecs.ContainerImage.from_registry(
-                    name='lpugens/lpugens-web-django',
+                    name='nginx',
                     credentials=secrets.Secret.from_secret_name_v2(
                         self,
                         "DockerHubToken",
