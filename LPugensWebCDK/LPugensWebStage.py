@@ -20,12 +20,13 @@ class LPugensWebStage(Stage):
             **kwargs
     ):
         super().__init__(scope, construct_id, **kwargs)
+        aws_env = kwargs.get("env")
 
-        self.secrets = SecretsStack(self, 'secrets-stack')
+        self.secrets = SecretsStack(self, 'secrets-stack', env=aws_env)
 
-        self.network = NetworkStack(self, 'network-stack')
+        self.network = NetworkStack(self, 'network-stack', env=aws_env)
 
-        self.database = DBStack(self, f'{self.stage_name}-db-stack', self.network.vpc, stage_config)
+        self.database = DBStack(self, f'{self.stage_name}-db-stack', self.network.vpc, stage_config, env=aws_env)
 
-        self.django_app = DjangoAppStack(self, 'django-stack', self.network.vpc, stage_config, self.secrets.app_secrets)
+        self.django_app = DjangoAppStack(self, 'django-stack', self.network.vpc, stage_config, self.secrets.app_secrets, env=aws_env)
 

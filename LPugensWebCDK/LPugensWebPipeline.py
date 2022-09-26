@@ -15,6 +15,7 @@ class LPugensWebPipeline(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         self.project_name = 'LPugensWeb'
+        aws_env = kwargs.get("env")
 
         pipeline = pipelines.CodePipeline(
             self, construct_id,
@@ -37,4 +38,4 @@ class LPugensWebPipeline(Stack):
         )
 
         for stage, stage_config in stage_configs.items():
-            pipeline.add_stage(LPugensWebStage(self, f'{stage}-{self.project_name}', stage_config))
+            pipeline.add_stage(LPugensWebStage(self, f'{stage}-{self.project_name}', stage_config, env=aws_env))

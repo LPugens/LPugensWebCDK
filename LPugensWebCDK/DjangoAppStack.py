@@ -2,7 +2,8 @@ from aws_cdk import (
     Stack,
     aws_ec2 as ec2,
     aws_ecs as ecs,
-    aws_sqs as sqs,
+    aws_route53 as route53,
+    aws_route53_targets as targets,
     aws_ecs_patterns as ecs_patterns,
     aws_certificatemanager as acm,
     aws_elasticloadbalancingv2 as elbv2,
@@ -61,5 +62,18 @@ class DjangoAppStack(Stack):
                 secrets=app_secrets,
             ),
             public_load_balancer=True,
+        )
+
+        self.hosted_zone = route53.HostedZone.from_lookup(
+            self,
+            "HostedZone",
+            domain_name="lpugens.com"
+        )
+        self.dns_record = route53.ARecord(
+            self,
+            "ARecord",
+            zone=self.hosted_zone,
+            record_name=None,
+            target=route53.RecordTarget.from_alias(targets.LoadBalancerTarget(self.fargate_service.load_balancer))
         )
 
